@@ -3,12 +3,8 @@ import { notFound } from '@tanstack/react-router'
 import { z } from 'zod'
 import { generateText } from 'ai'
 import type { SearchResultWeb } from '@mendable/firecrawl-js'
-import {
-  bulkImportSchema,
-  extractSchema,
-  importSchema,
-  searchSchema,
-} from '@/schemas/import'
+import type { extractSchema } from '@/schemas/import'
+import { bulkImportSchema, importSchema, searchSchema } from '@/schemas/import'
 import { firecrawl } from '@/lib/firecraw'
 
 import { prisma } from '@/db'
@@ -35,8 +31,8 @@ export const scrapeUrlFn = createServerFn({
           'markdown',
           {
             type: 'json',
-            schema: extractSchema,
-            // prompt: 'please extract the author and also publishedAt timestamp',
+            // schema: extractSchema,
+            prompt: 'please extract the author and also publishedAt timestamp',
           },
         ],
         onlyMainContent: true,
@@ -142,8 +138,9 @@ export const bulkScrapeUrlsFn = createServerFn({
             'markdown',
             {
               type: 'json',
-              schema: extractSchema,
-              // prompt: 'please extract the author and also publishedAt timestamp',
+              // schema: extractSchema,
+              prompt:
+                'please extract the author and also publishedAt timestamp',
             },
           ],
           location: {
